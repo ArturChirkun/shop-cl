@@ -11,6 +11,7 @@ export const MenuItem = ({title, imgUrl, size}) => {
         }}
         className={`${size} menu-item`}
         >
+            
             <div className='content'>
                 <h1 className='title'>
                     {title}
