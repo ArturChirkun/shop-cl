@@ -19,5 +19,13 @@
       color: black;
       border: 1px solid black;
     }
+    &.google {
+      background-color: #4285F4;
+      color: white;
+
+      &:hover {
+        background-color: #357ae8;
+      }
+    }
   }
   
