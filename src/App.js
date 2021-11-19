@@ -2,7 +2,8 @@ import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
 
-import { auth } from './components/firebase/firebase.utils';
+import { auth , createUserProfileDocument} from './firebase/firebase.utils';
+
 
 import { HomePage } from './pages/homepage/homepage';
 import Shop from './pages/shop/shop';
@@ -23,11 +24,26 @@ class App extends React.Component{
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged( user => {
-      this.setState({ currentUser : user })
-      console.log(user)
-    })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+
+          console.log(this.state);
+        });
+      }
+
+      this.setState({ currentUser: userAuth });
+    });
   }
+
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -37,13 +53,12 @@ class App extends React.Component{
   render() {
     return (
       <div>
-        <Header />
+        <Header currentUser={this.state.currentUser}/>
         <Routes>
           <Route path='/' element={ <HomePage />} />
           <Route path='/shop' element={ <Shop />} />
           <Route path='/signin' element={ <SignUpSignIn />} />
         </Routes>
-  
       </div>
     );
   }
