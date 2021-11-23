@@ -1,5 +1,6 @@
 import CartActionTypes from './types';
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, removeItem } from './cart.utils';
+import CartActionsTypes from './types';
 
 const INITIAL_STATE = {
   hidden: true,
@@ -18,6 +19,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cartItems: addItemToCart(state.cartItems, action.payload)
       };
+    case CartActionsTypes.CLEAR_ITEM_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((cartItem) => cartItem.id !== action.payload.id)
+      }
+    case CartActionsTypes.REMOVE_ITEM_FROM_CART:
+      return {
+        ...state,
+        cartItems: removeItem(state.cartItems, action.payload)
+      }
     default:
       return state;
   }
