@@ -21,7 +21,7 @@ const Header = ({currentUser, hidden}) => {
             </Link>
 
             <div className='options'>
-                <Link to='/shop' className='option'> 
+                <Link to='shop' className='option'> 
                     SHOP 
                 </Link>
 
@@ -32,10 +32,10 @@ const Header = ({currentUser, hidden}) => {
                 <div>
                     {
                         currentUser ?
-                        <Link to='/signin' className='option' onClick={() => auth.signOut()}>
+                        <Link to='signin' className='option' onClick={() => auth.signOut()}>
                             SIGN OUT
                         </Link> :
-                        <Link to='/signin' className='option' >
+                        <Link to='signin' className='option' >
                              SIGN IN 
                         </Link>
                     }
