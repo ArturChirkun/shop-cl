@@ -1,6 +1,6 @@
 import React from "react";
 
-import './checkout.scss';
+import { CheckoutPageContainer, CheckoutHeaderContainer, CheckoutHeaderBlockContainer, TotalContainer, WarningContainer } from "./checkout.styles";
 
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -12,48 +12,48 @@ import StripeCheckoutButton from "../../components/stripe-button/stripe-button";
 const Checkout = ({cartItems, total}) => {
 
     return (
-        <div className="checkout-page">
-            <div className='checkout-header'>
-                <div className='header-block'>
+        <CheckoutPageContainer>
+            <CheckoutHeaderContainer>
+                <CheckoutHeaderBlockContainer>
                     <span>
                         Product
                     </span>
-                </div>
-                <div className='header-block'>
+                </CheckoutHeaderBlockContainer>
+                <CheckoutHeaderBlockContainer>
                     <span>
                         Description
                     </span>
-                </div>
-                <div className='header-block'>
+                </CheckoutHeaderBlockContainer>
+                <CheckoutHeaderBlockContainer>
                     <span>
                         Quantity
                     </span>
-                </div>
-                <div className='header-block'>
+                </CheckoutHeaderBlockContainer>
+                <CheckoutHeaderBlockContainer>
                     <span>
                         Price
                     </span>
-                </div>
-                <div className='header-block'>
+                </CheckoutHeaderBlockContainer>
+                <CheckoutHeaderBlockContainer>
                     <span>
                         Remove
                     </span>
-                </div>
+                </CheckoutHeaderBlockContainer>
 
-            </div>
+            </CheckoutHeaderContainer>
 
                 {cartItems.map((cartItem) => ( <CheckoutItem key={cartItem.id} cartItem={cartItem} />))}
                 
-            <div className='total'>
+            <TotalContainer>
                 ${total}
-            </div>
-            <div className='test-warning'>
+            </TotalContainer>
+            <WarningContainer>
                 *Please use the following test credit cart for payments*
                 <br/>
                     4242 4242 4242 4242 | Future Date | any 3 digits
-            </div>
+            </WarningContainer>
             <StripeCheckoutButton price={total} />
-        </div>
+        </CheckoutPageContainer>
     )
 }
 
