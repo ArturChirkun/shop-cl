@@ -10,7 +10,7 @@ import CollectionItem from "../../components/collection-item/collection-item";
 
 import { useParams } from "react-router";
 
-const Collection = () => {
+const CollectionPage = () => {
 
     const { collectionId } = useParams(); 
     const collection = useSelector(state => selectShopCollection(collectionId)(state));
@@ -32,4 +32,4 @@ const Collection = () => {
 
 
 
-export default Collection;
+export default CollectionPage;
