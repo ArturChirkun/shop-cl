@@ -19,6 +19,16 @@ export const selectShopCollectionsForPreview = createSelector(
 export const selectShopCollection = memoize (collectionUrlParam =>
     createSelector(
     [selectShopCollections],
-    collections => collections ?  collections[collectionUrlParam] : []
+    collections => collections ?  collections[collectionUrlParam] : null
     )
 );
+
+export const selectIsCollectionsFetching = createSelector(
+    [selectShop],
+    shop => shop.isLoading
+)
+
+export const selectIsCollectionsLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections
+)
