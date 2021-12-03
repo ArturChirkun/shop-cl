@@ -1,3 +1,4 @@
+import UserActionTypes from "../user/types";
 import CartActionsTypes from "./types";
 
 export const toggleCartHidden = () => {
@@ -27,3 +28,7 @@ export const removeItemFromCart = (item) => {
         payload: item
     }
 }
+
+export const clearCart = () => ({
+    type: CartActionsTypes.CLEAR_CART
+})
