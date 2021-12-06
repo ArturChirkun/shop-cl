@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 
-
 import { selectCurrentUser } from './components/redux/user/user.selectors';
 
 import { HomePage } from './pages/homepage/homepage';
