@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import './shop.scss';
 
@@ -11,16 +11,13 @@ import CollectionPageContainer from "../collection/collection.container";
 import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 
 
-class Shop extends React.Component   {
+const Shop = ({ fetchingStart }) =>   {
 
-
-    componentDidMount() {
-        const { fetchingStart } = this.props;
+    useEffect(() => {
         fetchingStart();
-    }
+    }, [fetchingStart])
 
-    render() {
-        
+    
         return (
             <div>
                 <Routes>
@@ -31,7 +28,7 @@ class Shop extends React.Component   {
             )
     }
 
-}
+
 
 
 

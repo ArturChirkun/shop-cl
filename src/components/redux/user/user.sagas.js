@@ -104,7 +104,8 @@ export function* onSignInAfterSignUp() {
 
 
 export function* userSagas() {
-    yield all([call(signInWithGoogleStart),
+    yield all([
+        call(signInWithGoogleStart),
         call(signInWithEmailAndPasswordStart),
         call(isUserAuthenticated),
         call(onSignOutStart),
