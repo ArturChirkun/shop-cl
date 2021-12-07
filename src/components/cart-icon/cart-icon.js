@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 
 
 import { toggleCartHidden } from "../redux/cart/actions";
+
 import { selectCartItemsCount } from "../redux/cart/cart.selectors";
 
 import { CartIconContainer, ShoppingIconStyles, ItemCountStyles } from "./cart-icon.styles";

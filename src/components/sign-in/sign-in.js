@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-constructor */
-import React from "react";
+import React, { useState } from "react";
 
 import { SignInContainer, ButtonsContainer, SignInTitle } from "./sign-in-styles";
 
@@ -12,55 +12,43 @@ import CustomButton from '../custom-button/custom-button';
 
 
 
-class SignIn extends React.Component {
+const SignIn = ({ emailSignInStart, signInWithGoogle }) => {
 
-    constructor(props) {
-        super(props)
-        
-        this.state = {
-            email: '',
-            password:''
-        }
-    }
+const [userCredentials, setUserCredentials] = useState({email: '',password:''})
 
-    handleSubmit = async (event) => {
+const {email, password} = userCredentials;
+
+const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const { emailSignInStart } = this.props
-        const {email, password} = this.state;
         emailSignInStart(email, password);
     }
 
-    handleChange = (event) => {
+const handleChange = (event) => {
         const { name, value} = event.target;
-        this.setState({
-            [name]: value
-        })
+        setUserCredentials({ ...userCredentials, [name]: value})
     }
 
-    render() {
 
-        const { signInWithGoogle} = this.props;
         return (
             <SignInContainer>
                 <SignInTitle> I already have an account </SignInTitle>
                 <p> Sign in with your email and password</p>
 
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <FormInput 
                         name='email' 
                         type='email' 
                         label='email'
-                        value={this.state.email} 
+                        value={email} 
                         required 
-                        handleChange={this.handleChange}/>
+                        handleChange={handleChange}/>
                     <FormInput 
                         name='password' 
                         type='password' 
                         label='password'
-                        value={this.state.password} 
+                        value={password} 
                         required
-                        handleChange={this.handleChange}
+                        handleChange={handleChange}
                         />
                     <ButtonsContainer>
                         <CustomButton type='submit' > sign in </CustomButton>
@@ -71,7 +59,6 @@ class SignIn extends React.Component {
             </SignInContainer>
         )
     }
-}
 
 
 const mapDispatchToProps = (dispatch) => ({
