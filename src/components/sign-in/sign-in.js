@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import { SignInContainer, ButtonsContainer, SignInTitle } from "./sign-in-styles";
 
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { emailSignInStart, googleSignInStart } from "../redux/user/actions";
 
@@ -12,18 +12,20 @@ import CustomButton from '../custom-button/custom-button';
 
 
 
-const SignIn = ({ emailSignInStart, signInWithGoogle }) => {
+const SignIn = () => {
 
-const [userCredentials, setUserCredentials] = useState({email: '',password:''})
+    const dispatch = useDispatch();
 
-const {email, password} = userCredentials;
+    const [userCredentials, setUserCredentials] = useState({email: '',password:''})
 
-const handleSubmit = async (event) => {
+    const {email, password} = userCredentials;
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        emailSignInStart(email, password);
+        dispatch(emailSignInStart({ email, password }));
     }
 
-const handleChange = (event) => {
+    const handleChange = (event) => {
         const { name, value} = event.target;
         setUserCredentials({ ...userCredentials, [name]: value})
     }
@@ -52,7 +54,7 @@ const handleChange = (event) => {
                         />
                     <ButtonsContainer>
                         <CustomButton type='submit' > sign in </CustomButton>
-                        <CustomButton type='button' onClick={signInWithGoogle} isSignInWithGoogle> sign in with google </CustomButton>
+                        <CustomButton type='button' onClick={() => dispatch(googleSignInStart())} isSignInWithGoogle> sign in with google </CustomButton>
                     </ButtonsContainer>
 
                 </form>
@@ -61,9 +63,5 @@ const handleChange = (event) => {
     }
 
 
-const mapDispatchToProps = (dispatch) => ({
-    signInWithGoogle: ()=> dispatch(googleSignInStart()),
-    emailSignInStart: (email, password) => dispatch(emailSignInStart({email, password}))
-})
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default SignIn;

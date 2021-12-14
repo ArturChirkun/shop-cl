@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input";
 import CustomButton from "../custom-button/custom-button";
@@ -9,18 +9,20 @@ import CustomButton from "../custom-button/custom-button";
 import { SignUpContainer, SignUpTitle } from "./sign-up.styles";
 import { signUpStart } from "../redux/user/actions";
 
-const SignUp = ({ signUpStart}) =>  {
+const SignUp = () =>  {
 
-const [userCredentials, setUserCredentials] = useState({ 
+    const dispatch = useDispatch()
+
+    const [userCredentials, setUserCredentials] = useState({ 
     displayName: '',
     email: '',
     password: '',
     confirmPassword: ''
-});
+    });
 
-const {displayName, email, password, confirmPassword} = userCredentials;
+    const {displayName, email, password, confirmPassword} = userCredentials;
 
-const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (password !== confirmPassword) {
@@ -28,10 +30,10 @@ const handleSubmit = async (event) => {
             return;
         }
 
-        signUpStart({ displayName, email, password});
+        dispatch(signUpStart({ displayName, email, password}));
     }
 
-const handleChange = (event) => {
+    const handleChange = (event) => {
         const {name, value} = event.target;
         setUserCredentials({ ...userCredentials, [name]: value });
     }
@@ -87,8 +89,5 @@ const handleChange = (event) => {
         )
     }
 
-const mapDispatchToProps = dispatch => ({
-    signUpStart: userCredentials => dispatch(signUpStart(userCredentials))
-})
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;
